@@ -78,6 +78,7 @@ export const Button = styled.button<ButtonProps>`
       text-transform: uppercase;
       padding: 1.2rem 2.4rem;
       border-radius: 7px;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.075);
     `}
 `;
 

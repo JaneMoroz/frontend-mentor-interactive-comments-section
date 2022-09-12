@@ -10,6 +10,7 @@ export const CommentContainer = styled.div<CommentContainerProps>`
   padding: 2rem 2.4rem;
   border-radius: 1rem;
   width: 100%;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.075);
 
   ${(props) =>
     props.reply === true &&
@@ -37,6 +38,7 @@ export const CommentRating = styled.div`
   padding: 1.4rem;
   margin-right: 2.4rem;
   border-radius: 1rem;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
 
   span {
     color: ${(props) => props.theme.blue};
@@ -61,4 +63,5 @@ export const CommentBadge = styled.div`
   background: ${(props) => props.theme.blue};
   padding: 0.1rem 0.6rem;
   border-radius: 2px;
+  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
 `;
