@@ -2,11 +2,21 @@ import React from "react";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle, theme } from "./styles/globalStyle";
 
+// Styled Components
+import { Container } from "./styles/globalStyles";
+
+// Components
+import { Comments } from "./components";
+
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <h1>App</h1>
+      <main>
+        <Container>
+          <Comments />
+        </Container>
+      </main>
     </ThemeProvider>
   );
 }
