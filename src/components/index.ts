@@ -1,4 +1,5 @@
 import Comments from "./Comments";
 import Comment from "./Comment";
+import CommentInput from "./CommentInput";
 
-export { Comments, Comment };
+export { Comments, Comment, CommentInput };

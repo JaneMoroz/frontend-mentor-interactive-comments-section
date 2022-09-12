@@ -6,7 +6,7 @@ import { GlobalStyle, theme } from "./styles/globalStyle";
 import { Container } from "./styles/globalStyles";
 
 // Components
-import { Comments } from "./components";
+import { Comments, CommentInput } from "./components";
 
 function App() {
   return (
@@ -15,6 +15,7 @@ function App() {
       <main>
         <Container>
           <Comments />
+          <CommentInput />
         </Container>
       </main>
     </ThemeProvider>

@@ -10,6 +10,7 @@ export const Container = styled.div`
 type FlexProps = {
   spaceBetween?: boolean;
   alignEnd?: boolean;
+  alignStart?: boolean;
   column?: boolean;
   buttonsContainer?: boolean;
 };
@@ -29,7 +30,12 @@ export const Flex = styled.div<FlexProps>`
   ${(props) =>
     props.alignEnd === true &&
     css`
-      align-items: end;
+      align-items: flex-end;
+    `}
+    ${(props) =>
+    props.alignStart === true &&
+    css`
+      align-items: flex-start;
     `}
   ${(props) =>
     props.column === true &&
@@ -47,6 +53,7 @@ export const Flex = styled.div<FlexProps>`
 type ButtonProps = {
   textWithIcon?: boolean;
   delete?: boolean;
+  primary?: boolean;
 };
 
 export const Button = styled.button<ButtonProps>`
@@ -62,6 +69,15 @@ export const Button = styled.button<ButtonProps>`
     props.delete === true &&
     css`
       color: ${(props) => props.theme.red};
+    `}
+    ${(props) =>
+    props.primary === true &&
+    css`
+      background: ${(props) => props.theme.blue};
+      color: ${(props) => props.theme.white};
+      text-transform: uppercase;
+      padding: 1.2rem 2.4rem;
+      border-radius: 7px;
     `}
 `;
 
