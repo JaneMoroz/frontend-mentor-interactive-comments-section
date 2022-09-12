@@ -48,9 +48,12 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     font-family: 'Rubik', sans-serif;
     font-size: 1.6rem;
     font-weight: 400;
+    line-height: 1.6;
   }
   main {
     min-height: 100vh;
+    color: ${(props) => props.theme.grey};
+    background: ${(props) => props.theme.greyVeryLight};
   }
   ul {
     text-decoration: none;
@@ -60,6 +63,9 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     border: none;
     outline: none;
     cursor: pointer;
+  }
+  a {
+    text-decoration: none;
   }
   input {
     border: none;
