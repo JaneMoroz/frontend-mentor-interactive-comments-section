@@ -42,6 +42,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
       replyingTo: replyingTo,
       user: currentUser,
     };
+
     dispatch(addComment({ comment, parentCommentId }));
     setInputContent("");
     if (setIsReplying) setIsReplying!(false);

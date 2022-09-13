@@ -123,7 +123,7 @@ const Comment: React.FC<CommentProp> = ({ comment, parentCommentId = "" }) => {
         <CommentInput
           setIsReplying={setIsReplying}
           replyingTo={comment.user.username}
-          parentCommentId={comment.id}
+          parentCommentId={parentCommentId ? parentCommentId : comment.id}
         />
       )}
     </CommentSection>
