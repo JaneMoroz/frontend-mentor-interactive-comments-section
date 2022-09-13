@@ -12,22 +12,54 @@ const commentsSlice = createSlice({
   initialState,
   reducers: {
     upvoteComment: (state, action) => {
-      const tempComments = state.comments.map((comment) => {
-        if (comment.id === action.payload) {
-          return { ...comment, score: comment.score + 1 };
-        }
-        return comment;
-      });
-      state.comments = tempComments;
+      if (action.payload.parentCommentId === "") {
+        const tempComments = state.comments.map((comment) => {
+          if (comment.id === action.payload.commentId) {
+            comment.score += 1;
+          }
+          return comment;
+        });
+        state.comments = tempComments;
+      }
+      if (action.payload.parentCommentId !== "") {
+        const tempComments = state.comments.map((comment) => {
+          if (comment.id === action.payload.parentCommentId) {
+            comment.replies.map((reply) => {
+              if (reply.id === action.payload.commentId) {
+                reply.score += 1;
+              }
+              return reply;
+            });
+          }
+          return comment;
+        });
+        state.comments = tempComments;
+      }
     },
     downvoteComment: (state, action) => {
-      const tempComments = state.comments.map((comment) => {
-        if (comment.id === action.payload) {
-          return { ...comment, score: comment.score - 1 };
-        }
-        return comment;
-      });
-      state.comments = tempComments;
+      if (action.payload.parentCommentId === "") {
+        const tempComments = state.comments.map((comment) => {
+          if (comment.id === action.payload.commentId) {
+            comment.score -= 1;
+          }
+          return comment;
+        });
+        state.comments = tempComments;
+      }
+      if (action.payload.parentCommentId !== "") {
+        const tempComments = state.comments.map((comment) => {
+          if (comment.id === action.payload.parentCommentId) {
+            comment.replies.map((reply) => {
+              if (reply.id === action.payload.commentId) {
+                reply.score -= 1;
+              }
+              return reply;
+            });
+          }
+          return comment;
+        });
+        state.comments = tempComments;
+      }
     },
     addComment: (state, action) => {
       if (action.payload.parentCommentId !== "") {

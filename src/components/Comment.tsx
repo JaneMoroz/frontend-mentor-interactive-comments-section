@@ -34,9 +34,10 @@ import IComment from "../interfaces/IComment";
 
 interface CommentProp {
   comment: IComment;
+  parentCommentId?: string;
 }
 
-const Comment: React.FC<CommentProp> = ({ comment }) => {
+const Comment: React.FC<CommentProp> = ({ comment, parentCommentId = "" }) => {
   const { currentUser } = useAppSelector((store) => store.user);
   const dispatch = useAppDispatch();
 
@@ -47,7 +48,14 @@ const Comment: React.FC<CommentProp> = ({ comment }) => {
       <CommentContainer>
         <CommentRating>
           <Button
-            onClick={() => dispatch(upvoteComment(comment.id))}
+            onClick={() =>
+              dispatch(
+                upvoteComment({
+                  commentId: comment.id,
+                  parentCommentId,
+                })
+              )
+            }
             type="button"
             aria-label="plus"
           >
@@ -55,7 +63,14 @@ const Comment: React.FC<CommentProp> = ({ comment }) => {
           </Button>
           <span>{comment.score}</span>
           <Button
-            onClick={() => dispatch(downvoteComment(comment.id))}
+            onClick={() =>
+              dispatch(
+                downvoteComment({
+                  commentId: comment.id,
+                  parentCommentId,
+                })
+              )
+            }
             type="button"
             aria-label="minus"
           >

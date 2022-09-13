@@ -31,6 +31,7 @@ const Comments = () => {
                     user,
                     isReply: true,
                   }}
+                  parentCommentId={comment.id}
                 />
               );
             })}
