@@ -5,7 +5,6 @@ export const CommentInputContainer = styled.div`
   padding: 2rem 2.4rem;
   border-radius: 1rem;
   width: 100%;
-  margin-top: 1.6rem;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.075);
 
   img {

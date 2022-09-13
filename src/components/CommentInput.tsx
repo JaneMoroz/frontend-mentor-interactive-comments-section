@@ -13,11 +13,13 @@ import {
 } from "../styles/commentInputStyles";
 
 type CommentInputProps = {
+  setIsReplying?: React.Dispatch<React.SetStateAction<boolean>>;
   replyingTo?: string;
   parentCommentId?: string;
 };
 
 const CommentInput: React.FC<CommentInputProps> = ({
+  setIsReplying,
   replyingTo = "",
   parentCommentId = "",
 }) => {
@@ -42,6 +44,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
     };
     dispatch(addComment({ comment, parentCommentId }));
     setInputContent("");
+    if (setIsReplying) setIsReplying!(false);
   };
 
   return (

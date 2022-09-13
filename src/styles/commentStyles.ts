@@ -1,33 +1,12 @@
 import styled, { css } from "styled-components";
 
-type CommentContainerProps = {
+type CommentSectionProps = {
   reply?: boolean;
 };
 
-export const CommentContainer = styled.div<CommentContainerProps>`
+export const CommentSection = styled.div<CommentSectionProps>`
   position: relative;
-  display: grid;
-  grid-template-columns: max-content repeat(2, 1fr);
-  row-gap: 1.4rem;
-  column-gap: 2.4rem;
   width: 100%;
-  background: ${(props) => props.theme.white};
-  padding: 2rem 2.4rem;
-  border-radius: 1rem;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.075);
-
-  p {
-    grid-column: 2 / span 2;
-    word-wrap: break-word;
-  }
-
-  @media only screen and (max-width: 37.5em) {
-    grid-template-columns: repeat(2, 1fr);
-
-    p {
-      grid-column: 1 / -1;
-    }
-  }
 
   ${(props) =>
     props.reply === true &&
@@ -49,6 +28,42 @@ export const CommentContainer = styled.div<CommentContainerProps>`
         background: ${(props) => props.theme.greyLight};
       }
     `}
+`;
+
+// type CommentContainerProps = {
+//   reply?: boolean;
+// };
+
+export const CommentContainer = styled.div`
+  /* position: relative; */
+  display: grid;
+  grid-template-columns: max-content repeat(2, 1fr);
+  row-gap: 1.4rem;
+  column-gap: 2.4rem;
+  /* width: 100%; */
+  background: ${(props) => props.theme.white};
+  padding: 2rem 2.4rem;
+  border-radius: 1rem;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.075);
+  margin-bottom: 1.6rem;
+
+  p {
+    grid-column: 2 / span 2;
+    word-wrap: break-word;
+
+    span {
+      font-weight: 500;
+      color: ${(props) => props.theme.blue};
+    }
+  }
+
+  @media only screen and (max-width: 37.5em) {
+    grid-template-columns: repeat(2, 1fr);
+
+    p {
+      grid-column: 1 / -1;
+    }
+  }
 `;
 
 export const CommentRating = styled.div`

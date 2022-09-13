@@ -11,7 +11,7 @@ import { Comment } from "./index";
 const Comments = () => {
   const { comments } = useAppSelector((state) => state.comments);
   return (
-    <Flex column>
+    <Flex column marginBottom>
       {comments.map((comment) => {
         const { id, content, createdAt, score, user } = comment;
         return (

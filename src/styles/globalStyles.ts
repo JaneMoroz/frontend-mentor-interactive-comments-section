@@ -12,6 +12,7 @@ type FlexProps = {
   column?: boolean;
   buttonsContainer?: boolean;
   fullWidth?: boolean;
+  marginBottom?: boolean;
 };
 
 export const Flex = styled.div<FlexProps>`
@@ -45,6 +46,11 @@ export const Flex = styled.div<FlexProps>`
     props.fullWidth === true &&
     css`
       width: 100%;
+    `}
+  ${(props) =>
+    props.marginBottom === true &&
+    css`
+      margin-bottom: 1.6rem;
     `}
 `;
 

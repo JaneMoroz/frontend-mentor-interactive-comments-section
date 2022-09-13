@@ -13,6 +13,7 @@ import CommentInput from "./CommentInput";
 // Styled Components
 import { Flex, Button, Link } from "../styles/globalStyles";
 import {
+  CommentSection,
   CommentContainer,
   CommentRating,
   CommentHeader,
@@ -42,8 +43,8 @@ const Comment: React.FC<CommentProp> = ({ comment }) => {
   const [isReplying, setIsReplying] = useState(false);
 
   return (
-    <>
-      <CommentContainer reply={comment.isReply}>
+    <CommentSection reply={comment.isReply}>
+      <CommentContainer>
         <CommentRating>
           <Button
             onClick={() => dispatch(upvoteComment(comment.id))}
@@ -98,15 +99,19 @@ const Comment: React.FC<CommentProp> = ({ comment }) => {
             </Button>
           </Flex>
         )}
-        <p>{comment.content}</p>
+        <p>
+          {comment.replyingTo && <span>@{comment.replyingTo} </span>}
+          {comment.content}
+        </p>
       </CommentContainer>
       {isReplying && (
         <CommentInput
+          setIsReplying={setIsReplying}
           replyingTo={comment.user.username}
           parentCommentId={comment.id}
         />
       )}
-    </>
+    </CommentSection>
   );
 };
 
