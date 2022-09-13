@@ -98,11 +98,45 @@ const commentsSlice = createSlice({
         state.comments = tempComments;
       }
     },
-    editComment: (state, action) => {},
+    editComment: (state, action) => {
+      if (action.payload.parentCommentId === "") {
+        console.log("no upper comment");
+
+        const tempComments = state.comments.map((comment) => {
+          if (comment.id === action.payload.commentId) {
+            comment.content = action.payload.inputContent;
+          }
+          return comment;
+        });
+        state.comments = tempComments;
+      }
+      if (action.payload.parentCommentId !== "") {
+        console.log("with upper comment");
+        const tempComments = state.comments.map((comment) => {
+          console.log(action.payload.inputContent);
+
+          if (comment.id === action.payload.parentCommentId) {
+            comment.replies.map((reply) => {
+              if (reply.id === action.payload.commentId) {
+                reply.content = action.payload.inputContent;
+              }
+              return reply;
+            });
+          }
+          return comment;
+        });
+        state.comments = tempComments;
+      }
+    },
   },
 });
 
-export const { upvoteComment, downvoteComment, addComment, deleteComment } =
-  commentsSlice.actions;
+export const {
+  upvoteComment,
+  downvoteComment,
+  addComment,
+  deleteComment,
+  editComment,
+} = commentsSlice.actions;
 
 export default commentsSlice.reducer;

@@ -2,7 +2,7 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 
 // Redux
 import { useAppSelector, useAppDispatch } from "../hooks/useRedux";
-import { addComment } from "../features/comments/commentsSlice";
+import { addComment, editComment } from "../features/comments/commentsSlice";
 import { nanoid } from "@reduxjs/toolkit";
 
 // Styled Components
@@ -13,19 +13,27 @@ import {
 } from "../styles/commentInputStyles";
 
 type CommentInputProps = {
+  isEditing?: boolean;
+  setIsEditing?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsReplying?: React.Dispatch<React.SetStateAction<boolean>>;
   replyingTo?: string;
   parentCommentId?: string;
+  commentId?: string;
+  commentContent?: string;
 };
 
 const CommentInput: React.FC<CommentInputProps> = ({
+  isEditing,
+  setIsEditing,
   setIsReplying,
   replyingTo = "",
   parentCommentId = "",
+  commentId = "",
+  commentContent = "",
 }) => {
   const { currentUser } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
-  const [inputContent, setInputContent] = useState("");
+  const [inputContent, setInputContent] = useState(commentContent);
 
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setInputContent(e.target.value);
@@ -33,19 +41,32 @@ const CommentInput: React.FC<CommentInputProps> = ({
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    const comment = {
-      id: nanoid(),
-      content: inputContent,
-      createdAt: "now",
-      score: 0,
-      isReply: parentCommentId ? true : false,
-      replyingTo: replyingTo,
-      user: currentUser,
-    };
+    if (!isEditing) {
+      const comment = {
+        id: nanoid(),
+        content: inputContent,
+        createdAt: "now",
+        score: 0,
+        isReply: parentCommentId ? true : false,
+        replyingTo: replyingTo,
+        user: currentUser,
+      };
 
-    dispatch(addComment({ comment, parentCommentId }));
-    setInputContent("");
-    if (setIsReplying) setIsReplying!(false);
+      dispatch(addComment({ comment, parentCommentId }));
+      setInputContent("");
+      if (setIsReplying) setIsReplying!(false);
+    }
+    if (isEditing) {
+      dispatch(
+        editComment({
+          inputContent,
+          commentId,
+          parentCommentId: parentCommentId === commentId ? "" : parentCommentId,
+        })
+      );
+      setInputContent("");
+      if (setIsEditing) setIsEditing!(false);
+    }
   };
 
   return (
@@ -63,7 +84,7 @@ const CommentInput: React.FC<CommentInputProps> = ({
           required
         ></textarea>
         <Button type="submit" primary>
-          {parentCommentId ? "Reply" : "Send"}
+          {isEditing ? "Update" : parentCommentId ? "Reply" : "Send"}
         </Button>
       </CommentInputForm>
     </CommentInputContainer>
