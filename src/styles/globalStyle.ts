@@ -67,7 +67,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   a {
     text-decoration: none;
   }
-  input {
+  input,textarea {
     border: none;
     outline: none;
   }

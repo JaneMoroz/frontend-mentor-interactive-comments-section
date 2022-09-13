@@ -45,6 +45,10 @@ export const CommentInputForm = styled.form`
     padding: 1rem;
     color: inherit;
 
+    :focus {
+      border: 1px solid ${(props) => props.theme.grey};
+    }
+
     @media only screen and (max-width: 37.5em) {
       grid-row: 1;
       grid-column: 1/-1;
