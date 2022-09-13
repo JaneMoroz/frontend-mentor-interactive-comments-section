@@ -78,12 +78,31 @@ const commentsSlice = createSlice({
         state.comments.push(action.payload.comment);
       }
     },
-    deleteComment: (state, action) => {},
+    deleteComment: (state, action) => {
+      if (action.payload.parentCommentId !== "") {
+        const tempComments = state.comments.map((comment) => {
+          if (comment.id === action.payload.parentCommentId) {
+            const tempReplies = comment.replies.filter(
+              (reply) => reply.id !== action.payload.commentId
+            );
+            comment.replies = tempReplies;
+          }
+          return comment;
+        });
+        state.comments = tempComments;
+      }
+      if (action.payload.parentCommentId === "") {
+        const tempComments = state.comments.filter(
+          (comment) => comment.id !== action.payload.commentId
+        );
+        state.comments = tempComments;
+      }
+    },
     editComment: (state, action) => {},
   },
 });
 
-export const { upvoteComment, downvoteComment, addComment } =
+export const { upvoteComment, downvoteComment, addComment, deleteComment } =
   commentsSlice.actions;
 
 export default commentsSlice.reducer;
