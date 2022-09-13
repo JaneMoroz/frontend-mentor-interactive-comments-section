@@ -1,4 +1,6 @@
 import React from "react";
+// Redux
+import { useAppSelector } from "../hooks/useRedux";
 
 // Styled components
 import { Flex } from "../styles/globalStyles";
@@ -6,18 +8,16 @@ import { Flex } from "../styles/globalStyles";
 // Components
 import { Comment } from "./index";
 
-// Test data
-import { testData } from "../assets/data/testData";
-
 const Comments = () => {
+  const { comments } = useAppSelector((state) => state.comments);
   return (
     <Flex column>
-      {testData.map((comment) => {
+      {comments.map((comment) => {
         const { id, content, createdAt, score, user } = comment;
         return (
-          <Flex column alignEnd key={id}>
+          <Flex column alignEnd fullWidth key={id}>
             <Comment comment={{ id, content, createdAt, score, user }} />
-            {comment.replies.map((reply) => {
+            {comment.replies?.map((reply) => {
               const { id, content, createdAt, score, replyingTo, user } = reply;
               return (
                 <Comment

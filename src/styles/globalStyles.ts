@@ -11,6 +11,7 @@ type FlexProps = {
   alignEnd?: boolean;
   column?: boolean;
   buttonsContainer?: boolean;
+  fullWidth?: boolean;
 };
 
 export const Flex = styled.div<FlexProps>`
@@ -39,6 +40,11 @@ export const Flex = styled.div<FlexProps>`
       @media only screen and (max-width: 37.5em) {
         grid-row: 3;
       }
+    `}
+  ${(props) =>
+    props.fullWidth === true &&
+    css`
+      width: 100%;
     `}
 `;
 

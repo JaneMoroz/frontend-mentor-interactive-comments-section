@@ -1,4 +1,9 @@
-import React from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
+
+// Redux
+import { useAppSelector, useAppDispatch } from "../hooks/useRedux";
+import { addComment } from "../features/comments/commentsSlice";
+import { nanoid } from "@reduxjs/toolkit";
 
 // Styled Components
 import { Button } from "../styles/globalStyles";
@@ -7,23 +12,54 @@ import {
   CommentInputForm,
 } from "../styles/commentInputStyles";
 
-// Test data
-import { testData } from "../assets/data/testData";
+type CommentInputProps = {
+  replyingTo?: string;
+  parentCommentId?: string;
+};
 
-const CommentInput = () => {
+const CommentInput: React.FC<CommentInputProps> = ({
+  replyingTo = "",
+  parentCommentId = "",
+}) => {
+  const { currentUser } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+  const [inputContent, setInputContent] = useState("");
+
+  const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setInputContent(e.target.value);
+  };
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    const comment = {
+      id: nanoid(),
+      content: inputContent,
+      createdAt: "now",
+      score: 0,
+      isReply: parentCommentId ? true : false,
+      replyingTo: replyingTo,
+      user: currentUser,
+    };
+    dispatch(addComment({ comment, parentCommentId }));
+    setInputContent("");
+  };
+
   return (
     <CommentInputContainer>
-      <CommentInputForm>
-        <img src={testData[0].user.image.png} alt={testData[0].user.username} />
+      <CommentInputForm onSubmit={(e) => onSubmit(e)}>
+        <img src={currentUser.image.png} alt={currentUser.username} />
         <label htmlFor="comment">Your comment or reply</label>
         <textarea
+          onChange={(e) => onChange(e)}
+          value={inputContent}
           name="comment"
           id="comment"
           rows={4}
           placeholder="Add a comment..."
+          required
         ></textarea>
-        <Button primary type="button">
-          Send
+        <Button type="submit" primary>
+          {parentCommentId ? "Reply" : "Send"}
         </Button>
       </CommentInputForm>
     </CommentInputContainer>

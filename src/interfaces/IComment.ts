@@ -1,5 +1,5 @@
 interface IComment {
-  id: number;
+  id: string;
   content: string;
   createdAt: string;
   score: number;

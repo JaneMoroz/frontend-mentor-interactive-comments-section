@@ -18,6 +18,7 @@ export const CommentContainer = styled.div<CommentContainerProps>`
 
   p {
     grid-column: 2 / span 2;
+    word-wrap: break-word;
   }
 
   @media only screen and (max-width: 37.5em) {
