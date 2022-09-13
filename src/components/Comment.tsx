@@ -28,38 +28,34 @@ interface CommentProp {
 const Comment: React.FC<CommentProp> = ({ comment }) => {
   return (
     <CommentContainer reply={comment.isReply}>
-      <Flex>
-        <CommentRating>
-          <Button type="button" aria-label="plus">
-            <img src={plusIcon} alt="plus" />
-          </Button>
-          <span>{comment.score}</span>
-          <Button type="button" aria-label="minus">
-            <img src={minusIcon} alt="minus" />
-          </Button>
-        </CommentRating>
-        <div>
-          <CommentHeader>
-            <Link href="#">
-              <img src={comment.user.image.png} alt={comment.user.username} />
-              <span>{comment.user.username}</span>
-            </Link>
-            <CommentBadge>you</CommentBadge>
-            <span>{comment.createdAt}</span>
-            <Flex buttonsContainer>
-              <Button textWithIcon delete type="button">
-                <img src={deleteIcon} alt="delete" />
-                <span>Delete</span>
-              </Button>
-              <Button textWithIcon type="button">
-                <img src={editIcon} alt="edit" />
-                <span>Edit</span>
-              </Button>
-            </Flex>
-          </CommentHeader>
-          <p>{comment.content}</p>
-        </div>
+      <CommentRating>
+        <Button type="button" aria-label="plus">
+          <img src={plusIcon} alt="plus" />
+        </Button>
+        <span>{comment.score}</span>
+        <Button type="button" aria-label="minus">
+          <img src={minusIcon} alt="minus" />
+        </Button>
+      </CommentRating>
+      <CommentHeader>
+        <Link href="#">
+          <img src={comment.user.image.png} alt={comment.user.username} />
+          <span>{comment.user.username}</span>
+        </Link>
+        <CommentBadge>you</CommentBadge>
+        <span>{comment.createdAt}</span>
+      </CommentHeader>
+      <Flex buttonsContainer>
+        <Button textWithIcon delete type="button">
+          <img src={deleteIcon} alt="delete" />
+          <span>Delete</span>
+        </Button>
+        <Button textWithIcon type="button">
+          <img src={editIcon} alt="edit" />
+          <span>Edit</span>
+        </Button>
       </Flex>
+      <p>{comment.content}</p>
     </CommentContainer>
   );
 };

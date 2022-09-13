@@ -11,15 +11,28 @@ export const CommentInputContainer = styled.div`
   img {
     height: 4.8rem;
     width: 4.8rem;
+
+    @media only screen and (max-width: 37.5em) {
+      height: 3.6rem;
+      width: 3.6rem;
+    }
   }
 `;
 
 export const CommentInputForm = styled.form`
   position: relative;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: flex-start;
+  justify-content: center;
   column-gap: 1.6rem;
-  flex: 1;
+  row-gap: 1.6rem;
+
+  @media only screen and (max-width: 37.5em) {
+    align-items: center;
+    grid-template-columns: 1fr auto;
+  }
+
   label {
     position: absolute;
     height: 0;
@@ -27,10 +40,15 @@ export const CommentInputForm = styled.form`
   }
 
   textarea {
-    flex: 1;
+    resize: none;
     border: 1px solid ${(props) => props.theme.greyLight};
     border-radius: 1rem;
     padding: 1rem;
     color: inherit;
+
+    @media only screen and (max-width: 37.5em) {
+      grid-row: 1;
+      grid-column: 1/-1;
+    }
   }
 `;

@@ -8,9 +8,7 @@ export const Container = styled.div`
 `;
 
 type FlexProps = {
-  spaceBetween?: boolean;
   alignEnd?: boolean;
-  alignStart?: boolean;
   column?: boolean;
   buttonsContainer?: boolean;
 };
@@ -23,19 +21,9 @@ export const Flex = styled.div<FlexProps>`
   row-gap: 1.6rem;
 
   ${(props) =>
-    props.spaceBetween === true &&
-    css`
-      justify-content: space-between;
-    `}
-  ${(props) =>
     props.alignEnd === true &&
     css`
       align-items: flex-end;
-    `}
-    ${(props) =>
-    props.alignStart === true &&
-    css`
-      align-items: flex-start;
     `}
   ${(props) =>
     props.column === true &&
@@ -47,6 +35,10 @@ export const Flex = styled.div<FlexProps>`
     css`
       flex: 1;
       justify-content: end;
+
+      @media only screen and (max-width: 37.5em) {
+        grid-row: 3;
+      }
     `}
 `;
 
@@ -57,20 +49,22 @@ type ButtonProps = {
 };
 
 export const Button = styled.button<ButtonProps>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  column-gap: 0.8rem;
   ${(props) =>
     props.textWithIcon === true &&
     css`
       color: ${(props) => props.theme.blue};
       font-weight: 500;
-      display: flex;
-      column-gap: 0.8rem;
     `}
   ${(props) =>
     props.delete === true &&
     css`
       color: ${(props) => props.theme.red};
     `}
-    ${(props) =>
+  ${(props) =>
     props.primary === true &&
     css`
       background: ${(props) => props.theme.blue};
