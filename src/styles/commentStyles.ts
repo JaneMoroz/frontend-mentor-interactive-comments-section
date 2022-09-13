@@ -30,17 +30,11 @@ export const CommentSection = styled.div<CommentSectionProps>`
     `}
 `;
 
-// type CommentContainerProps = {
-//   reply?: boolean;
-// };
-
 export const CommentContainer = styled.div`
-  /* position: relative; */
   display: grid;
   grid-template-columns: max-content repeat(2, 1fr);
   row-gap: 1.4rem;
   column-gap: 2.4rem;
-  /* width: 100%; */
   background: ${(props) => props.theme.white};
   padding: 2rem 2.4rem;
   border-radius: 1rem;
@@ -71,10 +65,11 @@ export const CommentRating = styled.div`
   display: flex;
   flex-direction: column;
   align-self: flex-start;
+  justify-content: center;
   row-gap: 1.6rem;
   column-gap: 2rem;
   background: ${(props) => props.theme.greyVeryLight};
-  padding: 1.4rem;
+  padding: 1.4rem 0.4rem;
   border-radius: 1rem;
   box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.05);
 
@@ -86,8 +81,11 @@ export const CommentRating = styled.div`
   }
 
   span {
+    display: block;
     color: ${(props) => props.theme.blue};
     font-weight: 500;
+    text-align: center;
+    min-width: 3rem;
   }
 `;
 
