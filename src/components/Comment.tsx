@@ -151,11 +151,12 @@ const Comment: React.FC<CommentProp> = ({ comment, parentCommentId = "" }) => {
       )}
       {(isReplying || isEditing) && (
         <CommentInput
+          isReplying={isReplying}
           isEditing={isEditing}
           setIsEditing={setIsEditing}
           setIsReplying={setIsReplying}
           replyingTo={comment.user.username}
-          parentCommentId={parentCommentId ? parentCommentId : comment.id}
+          parentCommentId={parentCommentId}
           commentId={comment.id}
           commentContent={isEditing ? comment.content : ""}
         />

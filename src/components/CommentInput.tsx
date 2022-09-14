@@ -2,7 +2,11 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 
 // Redux
 import { useAppSelector, useAppDispatch } from "../hooks/useRedux";
-import { addComment, editComment } from "../features/comments/commentsSlice";
+import {
+  addComment,
+  addReply,
+  editComment,
+} from "../features/comments/commentsSlice";
 import { nanoid } from "@reduxjs/toolkit";
 
 // Styled Components
@@ -13,6 +17,7 @@ import {
 } from "../styles/commentInputStyles";
 
 type CommentInputProps = {
+  isReplying?: boolean;
   isEditing?: boolean;
   setIsEditing?: React.Dispatch<React.SetStateAction<boolean>>;
   setIsReplying?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -23,16 +28,18 @@ type CommentInputProps = {
 };
 
 const CommentInput: React.FC<CommentInputProps> = ({
+  isReplying,
   isEditing,
   setIsEditing,
   setIsReplying,
-  replyingTo = "",
+  replyingTo,
   parentCommentId = "",
   commentId = "",
-  commentContent = "",
+  commentContent,
 }) => {
   const { currentUser } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
+
   const [inputContent, setInputContent] = useState(commentContent);
 
   const onChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -41,32 +48,38 @@ const CommentInput: React.FC<CommentInputProps> = ({
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (!isEditing) {
+    if (isReplying) {
       const comment = {
         id: nanoid(),
         content: inputContent,
         createdAt: "now",
         score: 0,
-        isReply: parentCommentId ? true : false,
+        isReply: true,
         replyingTo: replyingTo,
         user: currentUser,
       };
-
-      dispatch(addComment({ comment, parentCommentId }));
-      setInputContent("");
+      dispatch(addReply({ comment, parentCommentId, commentId }));
       if (setIsReplying) setIsReplying!(false);
-    }
-    if (isEditing) {
+    } else if (isEditing) {
       dispatch(
         editComment({
           inputContent,
           commentId,
-          parentCommentId: parentCommentId === commentId ? "" : parentCommentId,
+          parentCommentId,
         })
       );
-      setInputContent("");
       if (setIsEditing) setIsEditing!(false);
+    } else {
+      const comment = {
+        id: nanoid(),
+        content: inputContent,
+        createdAt: "now",
+        score: 0,
+        user: currentUser,
+      };
+      dispatch(addComment({ comment }));
     }
+    setInputContent("");
   };
 
   return (

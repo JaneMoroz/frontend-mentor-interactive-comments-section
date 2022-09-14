@@ -11,6 +11,8 @@ const commentsSlice = createSlice({
   name: "comments",
   initialState,
   reducers: {
+    ////////////////////////////////////
+    // Upvote comment
     upvoteComment: (state, action) => {
       if (action.payload.parentCommentId === "") {
         const tempComments = state.comments.map((comment) => {
@@ -36,6 +38,8 @@ const commentsSlice = createSlice({
         state.comments = tempComments;
       }
     },
+    ////////////////////////////////////
+    // Downvote comment
     downvoteComment: (state, action) => {
       if (action.payload.parentCommentId === "") {
         const tempComments = state.comments.map((comment) => {
@@ -61,23 +65,32 @@ const commentsSlice = createSlice({
         state.comments = tempComments;
       }
     },
+    ////////////////////////////////////
+    // Add comment
     addComment: (state, action) => {
-      if (action.payload.parentCommentId !== "") {
-        const tempComments = state.comments.map((comment) => {
-          if (comment.id === action.payload.parentCommentId) {
-            return {
-              ...comment,
-              replies: [...comment.replies, action.payload.comment],
-            };
-          }
-          return comment;
-        });
-        state.comments = tempComments;
-      }
-      if (action.payload.parentCommentId === "") {
-        state.comments.push(action.payload.comment);
-      }
+      state.comments.push(action.payload.comment);
     },
+    ////////////////////////////////////
+    // Add reply
+    addReply: (state, action) => {
+      // get id of the comment the reply should be attached to (we have only two levels)
+      let id =
+        action.payload.parentCommentId !== ""
+          ? action.payload.parentCommentId
+          : action.payload.commentId;
+      const tempComments = state.comments.map((comment) => {
+        if (comment.id === id) {
+          return {
+            ...comment,
+            replies: [...comment.replies, action.payload.comment],
+          };
+        }
+        return comment;
+      });
+      state.comments = tempComments;
+    },
+    ////////////////////////////////////
+    // Delete comment/reply
     deleteComment: (state, action) => {
       if (action.payload.parentCommentId !== "") {
         const tempComments = state.comments.map((comment) => {
@@ -98,10 +111,10 @@ const commentsSlice = createSlice({
         state.comments = tempComments;
       }
     },
+    ////////////////////////////////////
+    // Edit comment/reply
     editComment: (state, action) => {
       if (action.payload.parentCommentId === "") {
-        console.log("no upper comment");
-
         const tempComments = state.comments.map((comment) => {
           if (comment.id === action.payload.commentId) {
             comment.content = action.payload.inputContent;
@@ -111,10 +124,7 @@ const commentsSlice = createSlice({
         state.comments = tempComments;
       }
       if (action.payload.parentCommentId !== "") {
-        console.log("with upper comment");
         const tempComments = state.comments.map((comment) => {
-          console.log(action.payload.inputContent);
-
           if (comment.id === action.payload.parentCommentId) {
             comment.replies.map((reply) => {
               if (reply.id === action.payload.commentId) {
@@ -135,6 +145,7 @@ export const {
   upvoteComment,
   downvoteComment,
   addComment,
+  addReply,
   deleteComment,
   editComment,
 } = commentsSlice.actions;
