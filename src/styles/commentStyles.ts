@@ -1,4 +1,5 @@
 import styled, { css } from "styled-components";
+import { motion } from "framer-motion";
 
 type CommentSectionProps = {
   reply?: boolean;
@@ -30,7 +31,7 @@ export const CommentSection = styled.div<CommentSectionProps>`
     `}
 `;
 
-export const CommentContainer = styled.div`
+export const CommentContainer = styled(motion.div)`
   display: grid;
   grid-template-columns: max-content repeat(2, 1fr);
   row-gap: 1.4rem;

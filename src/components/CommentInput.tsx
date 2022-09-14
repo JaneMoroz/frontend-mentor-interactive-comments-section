@@ -83,8 +83,25 @@ const CommentInput: React.FC<CommentInputProps> = ({
   };
 
   return (
-    <CommentInputContainer>
-      <CommentInputForm onSubmit={(e) => onSubmit(e)}>
+    <CommentInputContainer
+      animate={{ y: 0, opacity: 1 }}
+      initial={{ y: -72, opacity: 0 }}
+      exit={{ y: -72, opacity: 0 }}
+      transition={{ duration: 1, ease: [0.6, 0.05, -0.01, 0.9] }}
+    >
+      <CommentInputForm
+        animate={{
+          opacity: 1,
+          transition: {
+            delay: 0.7,
+          },
+        }}
+        initial={{ opacity: 0 }}
+        exit={{
+          opacity: 0,
+        }}
+        onSubmit={(e) => onSubmit(e)}
+      >
         <img src={currentUser.image.png} alt={currentUser.username} />
         <label htmlFor="comment">Your comment or reply</label>
         <textarea

@@ -1,6 +1,7 @@
 import styled from "styled-components";
+import { motion } from "framer-motion";
 
-export const CommentInputContainer = styled.div`
+export const CommentInputContainer = styled(motion.div)`
   background: ${(props) => props.theme.white};
   padding: 2rem 2.4rem;
   border-radius: 1rem;
@@ -18,7 +19,7 @@ export const CommentInputContainer = styled.div`
   }
 `;
 
-export const CommentInputForm = styled.form`
+export const CommentInputForm = styled(motion.form)`
   position: relative;
   display: grid;
   grid-template-columns: auto 1fr auto;

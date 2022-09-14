@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { stat } from "fs";
 
 // Temp data
 import tempData from "../../assets/data/data.json";

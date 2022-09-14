@@ -47,7 +47,12 @@ const Comment: React.FC<CommentProp> = ({ comment, parentCommentId = "" }) => {
   return (
     <CommentSection reply={comment.isReply}>
       {!isEditing && (
-        <CommentContainer>
+        <CommentContainer
+          layout
+          animate={{ y: 0, opacity: 1, transition: { delay: 0.5 } }}
+          initial={{ y: 72, opacity: 0 }}
+          transition={{ duration: 1, ease: [0.6, 0.05, -0.01, 0.9] }}
+        >
           <CommentRating>
             <Button
               icon
