@@ -4,7 +4,7 @@ import { createGlobalStyle } from "styled-components";
 // Types
 type ThemeType = {
   red: string;
-  paleRed: string;
+  redPale: string;
   blue: string;
   bluePale: string;
   blueDark: string;
@@ -17,7 +17,7 @@ type ThemeType = {
 // Theme
 export const theme = {
   red: "hsl(358, 79%, 66%)",
-  paleRed: "hsl(357, 100%, 86%)",
+  redPale: "hsl(357, 100%, 86%)",
   blue: "hsl(238, 40%, 52%)",
   bluePale: "hsl(239, 57%, 85%)",
   blueDark: "hsl(212, 24%, 26%)",
@@ -51,6 +51,7 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     line-height: 1.6;
   }
   main {
+    position: relative;
     min-height: 100vh;
     color: ${(props) => props.theme.grey};
     background: ${(props) => props.theme.greyVeryLight};
@@ -70,5 +71,9 @@ export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
   input,textarea {
     border: none;
     outline: none;
+  }
+
+  h1 {
+    margin: 0;
   }
 `;

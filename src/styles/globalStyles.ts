@@ -59,6 +59,8 @@ type ButtonProps = {
   textWithIcon?: boolean;
   delete?: boolean;
   primary?: boolean;
+  red?: boolean;
+  grey?: boolean;
 };
 
 export const Button = styled.button<ButtonProps>`
@@ -101,10 +103,10 @@ export const Button = styled.button<ButtonProps>`
       color: ${(props) => props.theme.red};
 
       :hover {
-        color: ${(props) => props.theme.paleRed};
+        color: ${(props) => props.theme.redPale};
       }
       :hover path {
-        fill: ${(props) => props.theme.paleRed};
+        fill: ${(props) => props.theme.redPale};
       }
     `}
   ${(props) =>
@@ -119,6 +121,26 @@ export const Button = styled.button<ButtonProps>`
 
       :hover {
         background: ${(props) => props.theme.bluePale};
+      }
+    `}
+  ${(props) =>
+    props.red === true &&
+    css`
+      background: ${(props) => props.theme.red};
+      color: ${(props) => props.theme.white};
+
+      :hover {
+        background: ${(props) => props.theme.redPale};
+      }
+    `}
+  ${(props) =>
+    props.grey === true &&
+    css`
+      background: ${(props) => props.theme.grey};
+      color: ${(props) => props.theme.white};
+
+      :hover {
+        background: ${(props) => props.theme.greyLight};
       }
     `}
 `;

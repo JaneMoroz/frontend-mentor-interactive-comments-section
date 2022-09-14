@@ -10,7 +10,7 @@ import { store } from "./store";
 import { Container } from "./styles/globalStyles";
 
 // Components
-import { Comments, CommentInput } from "./components";
+import { Comments, CommentInput, Modal } from "./components";
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
             <Comments />
             <CommentInput />
           </Container>
+          <Modal />
         </main>
       </ThemeProvider>
     </Provider>
