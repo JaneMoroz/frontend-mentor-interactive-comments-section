@@ -5,8 +5,9 @@ import { useAppSelector, useAppDispatch } from "../hooks/useRedux";
 import {
   upvoteComment,
   downvoteComment,
-  deleteComment,
+  updateCommentToDeleteData,
 } from "../features/comments/commentsSlice";
+import { toggleVisibility } from "../features/modal/modalSlice";
 
 // Components
 import CommentInput from "./CommentInput";
@@ -37,7 +38,10 @@ const Comment: React.FC<CommentProp> = ({ comment, parentCommentId = "" }) => {
   const [isEditing, setIsEditing] = useState(false);
 
   const handleDelete = () => {
-    dispatch(deleteComment({ commentId: comment.id, parentCommentId }));
+    dispatch(toggleVisibility());
+    dispatch(
+      updateCommentToDeleteData({ commentId: comment.id, parentCommentId })
+    );
   };
 
   return (

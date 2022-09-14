@@ -1,17 +1,30 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const ModalContainer = styled.div`
+type ModalContainerProps = {
+  isVisible?: boolean;
+};
+
+export const ModalContainer = styled.div<ModalContainerProps>`
+  display: none;
   position: absolute;
   top: 0;
   left: 0;
   height: 100%;
   width: 100%;
   background: rgba(103, 115, 126, 0.7);
+
+  ${(props) =>
+    props.isVisible === true &&
+    css`
+      display: block;
+    `}
 `;
 
 export const ModalInnerContainer = styled.div`
-  margin: 0 auto;
-  margin-top: 30vh;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   max-width: 40rem;
   background: ${(props) => props.theme.white};
   padding: 3.2rem;

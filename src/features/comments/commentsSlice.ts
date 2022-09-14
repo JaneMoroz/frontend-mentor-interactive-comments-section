@@ -1,10 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { stat } from "fs";
 
 // Temp data
 import tempData from "../../assets/data/data.json";
 
 const initialState = {
   comments: tempData.comments,
+  commentToDeleteData: {
+    commentId: "",
+    parentCommentId: "",
+  },
 };
 
 const commentsSlice = createSlice({
@@ -90,6 +95,11 @@ const commentsSlice = createSlice({
       state.comments = tempComments;
     },
     ////////////////////////////////////
+    // Update comment to delete data
+    updateCommentToDeleteData: (state, action) => {
+      state.commentToDeleteData = action.payload;
+    },
+    ////////////////////////////////////
     // Delete comment/reply
     deleteComment: (state, action) => {
       if (action.payload.parentCommentId !== "") {
@@ -148,6 +158,7 @@ export const {
   addReply,
   deleteComment,
   editComment,
+  updateCommentToDeleteData,
 } = commentsSlice.actions;
 
 export default commentsSlice.reducer;

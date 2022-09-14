@@ -4,9 +4,29 @@ import React from "react";
 import { ModalContainer, ModalInnerContainer } from "../styles/modalStyles";
 import { Button, Flex } from "../styles/globalStyles";
 
+// Redux
+import { useAppSelector, useAppDispatch } from "../hooks/useRedux";
+import { toggleVisibility } from "../features/modal/modalSlice";
+import { deleteComment } from "../features/comments/commentsSlice";
+
 const Modal = () => {
+  const dispatch = useAppDispatch();
+  const { isVisible } = useAppSelector((store) => store.modal);
+  const {
+    commentToDeleteData: { commentId, parentCommentId },
+  } = useAppSelector((store) => store.comments);
+
+  const handleCancel = () => {
+    dispatch(toggleVisibility());
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteComment({ commentId, parentCommentId }));
+    dispatch(toggleVisibility());
+  };
+
   return (
-    <ModalContainer>
+    <ModalContainer isVisible={isVisible}>
       <ModalInnerContainer>
         <Flex column>
           <h1>Delete comment</h1>
@@ -15,10 +35,10 @@ const Modal = () => {
             comment and can't be undone.
           </p>
           <Flex>
-            <Button primary grey type="button">
+            <Button onClick={handleCancel} primary grey type="button">
               No, cancel
             </Button>
-            <Button primary red type="button">
+            <Button onClick={handleDelete} primary red type="button">
               Yes, delete
             </Button>
           </Flex>
