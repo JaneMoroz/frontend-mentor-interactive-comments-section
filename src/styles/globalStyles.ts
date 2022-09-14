@@ -73,6 +73,7 @@ export const Button = styled.button<ButtonProps>`
   ${(props) =>
     props.icon === true &&
     css`
+      padding: 0.3rem 0;
       path {
         transition: all 0.3s;
       }
